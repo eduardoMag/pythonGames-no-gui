@@ -31,13 +31,13 @@ def getClues(guess, secretNum):
 def isOnlyDigits(num):
     # Returns True if num is a string made up only of digits. Otherwise returns False.
     if num == '':
-        return false
+        return False
 
     for i in num:
         if i not in '0 1 2 3 4 5 6 7 8 9'.split():
-            return false
+            return False
 
-    return true
+    return True
 
 
 def playAgain():
@@ -48,7 +48,7 @@ def playAgain():
 
 secrectDigit = 3
 maxGuess = 10
-print('I am thinking of a #%s-digit number. Try to guess what it is.') % secrectDigit
+print('I am thinking of a %s-digit number. Try to guess what it is.') % secrectDigit
 print('Here are some clues: ')
 print('When I say: That means: ')
 print('Pico One digit is correct but in the wrong position.')
@@ -60,7 +60,7 @@ while True:
     print('I have thought up a number. You have %s guesses to get it.') % maxGuess
 
     numGuesses = 1
-    while numGuesses <= MaxGuess:
+    while numGuesses <= maxGuess:
         guess = ''
         while len(guess) != secrectDigit or not isOnlyDigits(guess):
             print('Guess #%s: ') % numGuesses
@@ -72,7 +72,7 @@ while True:
 
         if guess == secretNum:
             break
-        if numGuesses > MaxGuess:
+        if numGuesses > maxGuess:
             print('You ran out of guesses. The answer was %s.') % secretNum
 
     if not playAgain():
