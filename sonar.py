@@ -2,29 +2,29 @@ import random
 import sys
 
 
-def drawBoard(self, board):
+def drawBoard(board):
     # draw the board data structure
-    hline = " "
+    hline = "    "
     for i in range(1, 6):
         hline += (" " * 9) + str(i)
 
     # print the numbers across the top
     print(hline)
-    print(" " + ('0123456789' * 6))
+    print("   " + ('0123456789' * 6))
     print()
 
     # print each of the 15 rows
     for i in range(15):
         # single-digit numbers need to be padded with an extra space
         if i < 10:
-            extraSpace = ' '
+            extraSpace = " "
         else:
             extraSpace = ''
         print('%s%s %s %s' % (extraSpace, i, getRow(board, i), i))
 
     # print across the bottom
     print()
-    print(' ' + ('0123456789' * 6))
+    print("   " + ('0123456789' * 6))
     print(hline)
 
 
@@ -45,7 +45,7 @@ def getNewBoard():
             if random.randint(0, 1) == 0:
                 board[x].append('~')
             else:
-                board[x].append('`')
+                board[x].append("'")
     return board
 
 
@@ -171,22 +171,25 @@ while True:
             extraSchest = 's'
         else:
             extraSchest = ''
-        print('You have %s sonar device%s left. %s treasure chest%s remaining.') % (
-            sonarDevices, extraSsonar, len(theChests), extraSchest)
+        print('You have %s sonar device%s left. %s treasure chest%s remaining.' % (
+            sonarDevices, extraSsonar, len(theChests), extraSchest))
 
         x, y = enterPlayerMove()
         previousMoves.append([x, y])
 
         moveResult = makeMove(theBoard, theChests, x, y)
-        if moveResult == False:
+
+        print("sonars droped at: ", previousMoves)
+
+        if moveResult is False:
             continue
         else:
             if moveResult == 'You have found a sunken treasure chest!':
                 # update all the sonar devices currently on the map.
                 for x, y in previousMoves:
                     makeMove(theBoard, theChests, x, y)
-                drawBoard(theBoard)
-                print(moveResult)
+            drawBoard(theBoard)
+            print(moveResult)
             if len(theChests) == 0:
                 print("You have found all the sunken treasure chests! CONGRATULATIONS and good game!")
                 break
@@ -195,11 +198,12 @@ while True:
 
         if sonarDevices == 0:
             print(
-                "we\'ve run out of sonar devices! Now we have to turn the ship around and head for home with treasure chests"
+                "we\'ve run out of sonar devices! Now we have to turn the ship around and head for home with treasure "
+                "chests "
                 "still out there! GAME OVER...")
             print("the remaining chests were here: ")
             for x, y in theChests:
-                print('%s, %s') % (x, y)
+                print('%s, %s' % (x, y))
 
-        if not playAgain():
-            sys.exit()
+            if not playAgain():
+                sys.exit()
